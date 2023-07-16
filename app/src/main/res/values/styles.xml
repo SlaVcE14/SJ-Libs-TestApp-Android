@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="testAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+
+    <style name="Test123" parent="Theme.Material3.DynamicColors.DayNight">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#ffff00ff</item>
+        <item name="colorPrimaryVariant">#ff23ff43</item>
+        <item name="colorOnPrimary">#ff45a233</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#ff235375</item>
+        <item name="colorSecondaryVariant">#ff0064ff</item>
+        <item name="colorOnSecondary">@color/SJDialog_red</item>
+        <item name="colorSecondaryContainer">#ff5635</item>
+
+
+    </style>
+</resources>
