@@ -1,19 +1,14 @@
 package com.sjapps.testapp.sjdialog;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.sjapps.library.customdialog.DialogButtonEvents;
 import com.sjapps.library.customdialog.ImageListItem;
@@ -21,95 +16,24 @@ import com.sjapps.library.customdialog.ListDialog;
 import com.sjapps.library.customdialog.ListItemValues;
 import com.sjapps.library.customdialog.SJDialog;
 import com.sjapps.testapp.R;
-import com.sjapps.testapp.SettingsData;
 
 import java.util.ArrayList;
 
-public class SJDialog_ListDialog extends AppCompatActivity {
+@SuppressWarnings("ALL")
+public class SJDialog_ListDialog extends SJDialog_Base<ListDialog> {
 
-    ArrayList<CheckBox> checkBoxes = new ArrayList<>();
-    ArrayList<EditText> editTexts = new ArrayList<>();
-
-    boolean setTitle;
-    boolean setMessage;
-    boolean oldTheme;
     boolean hideEmptyListTxt;
-    boolean setTxtColor;
-    boolean setTitleTxtColor;
-    boolean setMessageTxtColor;
-    boolean twoBtns;
-    boolean RedBtn;
-    boolean RedBtn1;
-    boolean RedBtn2;
-    boolean Mat3RedBtn;
-    boolean Mat3RedBtn1;
-    boolean Mat3RedBtn2;
-    boolean appTheme;
-    boolean theme1;
-    boolean theme2;
-    boolean noInsetsTheme;
-    boolean setAllBtnColorRed;
-    boolean setAllBtnColorMat3Red;
-    boolean setBgColor;
-    boolean setBtnColor;
-    boolean setBtn1Color;
-    boolean setBtn2Color;
-    boolean setAllBtnColor;
-    boolean setBtnColorTxt;
-    boolean setBtn1ColorTxt;
-    boolean setBtn2ColorTxt;
-    boolean setAllBtnColorTxt;
-    boolean oneBtnEvent;
-    boolean BtnEvents;
-    boolean btnTxt;
-    boolean btn1Txt;
-    boolean btn2Txt;
-    boolean btnRes;
-    boolean btn1Res;
-    boolean btn2Res;
-    boolean allBtnRes;
-    boolean dialogRes;
-    boolean setMaxWidth;
-    boolean setAnimation;
+    boolean setEmptyListTxt;
+
     boolean selectable;
     boolean setAdapter;
     boolean listBg;
     boolean listItemBg;
     boolean listItemSelectedBg;
     boolean listItemText;
-    boolean setNullOnTouchListener;
-    boolean setOnTouchListener;
-    boolean disableSwipe;
-    boolean leftInsets;
-    boolean rightInsets;
-    boolean bottomInsets;
-    boolean horizontalInsets;
-    boolean allInsets;
-    boolean noneInsets;
 
-
-    LinearLayout rootView;
-    LinearLayout listPresets;
-
-    EditText titleTxt;
-    EditText messageTxt;
-    EditText BgColor;
-    EditText BtnColor;
-    EditText Btn1Color;
-    EditText Btn2Color;
-    EditText AllBtnColor;
-    EditText BtnColorTxt;
-    EditText Btn1ColorTxt;
-    EditText Btn2ColorTxt;
-    EditText AllBtnColorTxt;
-    EditText BtnClickMsgTxt;
-    EditText Btn1ClickMsgTxt;
-    EditText Btn2ClickMsgTxt;
-    EditText BtnTxt;
-    EditText Btn1Txt;
-    EditText Btn2Txt;
-    EditText maxWidth;
     EditText iconNumTxt;
+    EditText emptyListTxt;
 
     ArrayList<CheckBox> PresetsCB = new ArrayList<>();
 
@@ -121,44 +45,15 @@ public class SJDialog_ListDialog extends AppCompatActivity {
     ArrayList<ImageListItem> imageItems;
     TestRecyclerViewAdapter testAdapter;
 
+    public SJDialog_ListDialog(){
+        super(true,false,"ListDialog");
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setTheme(SettingsData.applyTheme(this));
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sjdialog_list_dialog);
-        rootView = findViewById(R.id.root);
-        SettingsData.applyWindowInsets(rootView);
-        listPresets = findViewById(R.id.listPresets);
-        titleTxt = new EditText(this);
-        messageTxt = new EditText(this);
-
-        BgColor = new EditText(this);
-        BtnColor = new EditText(this);
-        Btn1Color = new EditText(this);
-        Btn2Color = new EditText(this);
-        AllBtnColor = new EditText(this);
-        BtnColorTxt = new EditText(this);
-        Btn1ColorTxt = new EditText(this);
-        Btn2ColorTxt = new EditText(this);
-        AllBtnColorTxt = new EditText(this);
-        BtnClickMsgTxt = new EditText(this);
-        Btn1ClickMsgTxt = new EditText(this);
-        Btn2ClickMsgTxt = new EditText(this);
-        BtnTxt = new EditText(this);
-        Btn1Txt = new EditText(this);
-        Btn2Txt = new EditText(this);
-        maxWidth = new EditText(this);
+    void init() {
         iconNumTxt = new EditText(this);
-
-        createViews();
+        emptyListTxt = new EditText(this);
         Presets();
-        addPresets();
-
-        Button createDialogBtn = new Button(this);
-        createDialogBtn.setText("Create Dialog");
-        createDialogBtn.setOnClickListener(view -> createDialog());
-        listPresets.addView(createDialogBtn);
-
     }
 
     private void Presets() {
@@ -211,188 +106,15 @@ public class SJDialog_ListDialog extends AppCompatActivity {
         return shape;
     }
 
-
-    boolean checkTwoBtns(CompoundButton compoundButton, boolean b, boolean b2) {
-
-        if (b2) {
-            compoundButton.setChecked(false);
-            return false;
-        }
-        if (b && !twoBtns) {
-            Toast.makeText(this, "Enable Two Buttons!!", Toast.LENGTH_SHORT).show();
-            compoundButton.setChecked(false);
-            return false;
-        }
-        return b;
-    }
-
-    private boolean checkBool(CompoundButton compoundButton, boolean b, boolean b2) {
-        if (b && b2) {
-            compoundButton.setChecked(false);
-            return false;
-        }
-        return b;
-    }
-
-    private boolean uncheck(CompoundButton compoundButton, boolean b, boolean b2, int n) {
-
-        if (b2) {
-            compoundButton.setChecked(false);
-            return false;
-        }
-        if (!b) return false;
-        for (int i = 1; i <= n; i++)
-            checkBoxes.get(checkBoxes.indexOf(compoundButton) - i).setChecked(false);
-
-        return true;
-    }
-
-
-
-    private void createViews() {
-
-        createEditTextAndCheckBoxLayout("Set Title", titleTxt, "Title", "title", (compoundButton, b) -> setTitle = b);
-        createEditTextAndCheckBoxLayout("Set Message", messageTxt, "Message", "message", (compoundButton, b) -> setMessage = b);
-
-        createCheckBox("Two Buttons", (compoundButton, b) -> twoBtns = b);
-        createMultiCheckBox(
-                new CBData("Use app theme", (compoundButton, b) -> {
-                    appTheme = b;
-                    if (!b) return;
-                    checkBoxes.get(checkBoxes.indexOf(compoundButton) + 1).setChecked(false);
-                    checkBoxes.get(checkBoxes.indexOf(compoundButton) + 2).setChecked(false);
-                    checkBoxes.get(checkBoxes.indexOf(compoundButton) + 3).setChecked(false);
-                }),
-                new CBData("Use theme1", (compoundButton, b) -> {
-                    theme1 = b;
-                    if (!b) return;
-                    checkBoxes.get(checkBoxes.indexOf(compoundButton) - 1).setChecked(false);
-                    checkBoxes.get(checkBoxes.indexOf(compoundButton) + 1).setChecked(false);
-                    checkBoxes.get(checkBoxes.indexOf(compoundButton) + 2).setChecked(false);
-                }),
-                new CBData("Use theme2", (compoundButton, b) -> {
-                    theme2 = b;
-                    if (!b) return;
-                    checkBoxes.get(checkBoxes.indexOf(compoundButton) - 1).setChecked(false);
-                    checkBoxes.get(checkBoxes.indexOf(compoundButton) - 2).setChecked(false);
-                    checkBoxes.get(checkBoxes.indexOf(compoundButton) + 1).setChecked(false);
-                }),
-                new CBData("Use noInsets theme", (compoundButton, b) -> {
-                    noInsetsTheme = b;
-                    if (!b) return;
-                    checkBoxes.get(checkBoxes.indexOf(compoundButton) - 1).setChecked(false);
-                    checkBoxes.get(checkBoxes.indexOf(compoundButton) - 2).setChecked(false);
-                    checkBoxes.get(checkBoxes.indexOf(compoundButton) - 3).setChecked(false);
-                })
-        );
-        createCheckBox("Old theme", (compoundButton, b) -> oldTheme = b);
-
+    @Override
+    protected void createViews() {
+        super.createViews();
+        addSpace();
         createCheckBox("Hide 'List is empty' text", (compoundButton, b) -> hideEmptyListTxt = b);
-        createCheckBox("Set text color", (compoundButton, b) -> setTxtColor = b);
-        createCheckBox("Set title text color", (compoundButton, b) -> setTitleTxtColor = b);
-        createCheckBox("Set message text color", (compoundButton, b) -> setMessageTxtColor = b);
-
-        createCheckBox("red Btn", (compoundButton, b) -> RedBtn = checkBool(compoundButton, b, RedBtn1));
-        createCheckBox("Left red Btn", (compoundButton, b) -> RedBtn1 = uncheck(compoundButton, b, setAllBtnColorRed, 1));
-        createCheckBox("Right red Btn", (compoundButton, b) -> RedBtn2 = checkTwoBtns(compoundButton, b, setAllBtnColorRed));
-        createCheckBox("All red Btn", (compoundButton, b) -> setAllBtnColorRed = uncheck(compoundButton, b, false, 2));
-
-        createCheckBox("material3 red Btn", (compoundButton, b) -> Mat3RedBtn = checkBool(compoundButton, b, Mat3RedBtn1));
-        createCheckBox("Left material3 red Btn", (compoundButton, b) -> Mat3RedBtn1 = uncheck(compoundButton, b, setAllBtnColorMat3Red, 1));
-        createCheckBox("Right material3 red Btn", (compoundButton, b) -> Mat3RedBtn2 = checkTwoBtns(compoundButton, b, setAllBtnColorMat3Red));
-        createCheckBox("All material3 red Btn", (compoundButton, b) -> setAllBtnColorMat3Red = uncheck(compoundButton, b, false, 2));
-
-        createEditTextAndCheckBoxLayout("Set Background Color",BgColor,"#FF006464","colorBg",(compoundButton, b) -> setBgColor = b);
-        createEditTextAndCheckBoxLayout("Set Btn Color", BtnColor, "#FF00FF00", "colorBtn", (compoundButton, b) -> setBtnColor = checkBool(compoundButton, b, setBtn1Color));
-        createEditTextAndCheckBoxLayout("Set Left Btn Color", Btn1Color, "#FF00FF00", "colorLBtn", (compoundButton, b) -> setBtn1Color = uncheck(compoundButton, b, setAllBtnColor, 1));
-        createEditTextAndCheckBoxLayout("Set Right Btn Color", Btn2Color, "#FF00FF00", "colorRBtn", (compoundButton, b) -> setBtn2Color = checkTwoBtns(compoundButton, b, setAllBtnColor));
-
-        createEditTextAndCheckBoxLayout("Set All Btns Color", AllBtnColor, "#FF00FF00", "colorAllBtn", (compoundButton, b) -> setAllBtnColor = uncheck(compoundButton, b, false, 2));
-
-        createEditTextAndCheckBoxLayout("Set Btn Text", BtnTxt, "BtnTxt", "BtnTxt", (compoundButton, b) -> btnTxt = checkBool(compoundButton, b, btn1Txt));
-        createEditTextAndCheckBoxLayout("Set Left Btn Text", Btn1Txt, "Btn1Txt", "LBtnTxt", (compoundButton, b) -> btn1Txt = uncheck(compoundButton, b, false, 1));
-        createEditTextAndCheckBoxLayout("Set Right Btn Text", Btn2Txt, "Btn2Txt", "RBtnTxt", (compoundButton, b) -> btn2Txt = checkTwoBtns(compoundButton, b, false));
-
-        createEditTextAndCheckBoxLayout("Set Button Text Color", BtnColorTxt, "#FF00FF00", "BtnTxtColor", (compoundButton, b) -> setBtnColorTxt = checkBool(compoundButton, b, btn1Txt));
-        createEditTextAndCheckBoxLayout("Set Left Button Text Color", Btn1ColorTxt, "#FF00FF00", "LeftBtnTxtColor", (compoundButton, b) -> btn1Txt = uncheck(compoundButton, b, setAllBtnColorTxt, 1));
-        createEditTextAndCheckBoxLayout("Set Right Button Text Color", Btn2ColorTxt, "#FF00FF00", "RightBtnTxtColor", (compoundButton, b) -> setBtn2ColorTxt = checkTwoBtns(compoundButton, b, setAllBtnColorTxt));
-
-        createEditTextAndCheckBoxLayout("Set All Buttons Text Color", AllBtnColorTxt, "#FF00FF00", "AllBtsTxtColor", (compoundButton, b) -> setAllBtnColorTxt = uncheck(compoundButton, b, false, 2));
-
-        createCheckBox("Set onClick btn", (compoundButton, b) -> oneBtnEvent = b);
-        createCheckBox("Set onClick All btns", (compoundButton, b) -> BtnEvents = b);
-        createEditTextLayout("Set Left btn onClick Msg", Btn1ClickMsgTxt, "Left Btn msg", "Left Btn msg");
-        createEditTextLayout("Set Right btn onClick Msg", Btn2ClickMsgTxt, "Right Btn msg", "Right Btn msg");
-
-
-        createCheckBox("Set Dialog Background Resource", (compoundButton, b) -> dialogRes = b);
-        createCheckBox("Set Button Resource", (compoundButton, b) -> btnRes = checkBool(compoundButton, b, btn1Res));
-        createCheckBox("Set Left Button Background Resource", (compoundButton, b) -> btn1Res = uncheck(compoundButton, b, allBtnRes, 1));
-        createCheckBox("Set Right Button Background Resource", (compoundButton, b) -> btn2Res = checkTwoBtns(compoundButton, b, allBtnRes));
-        createCheckBox("Set All Buttons Background Resource", (compoundButton, b) -> allBtnRes = uncheck(compoundButton, b, false, 2));
-        createEditTextAndCheckBoxLayout("Set Max Dialog Width", maxWidth, "300", "maxWidth", (compoundButton, b) -> setMaxWidth = b);
-        createCheckBox("Set Custom Animation", (compoundButton, b) -> setAnimation = b);
-        createCheckBox("Disable swipe to dismiss", (compoundButton, b) -> disableSwipe = b);
-        createCheckBox("Null onTouchListener", (compoundButton, b) -> setNullOnTouchListener = b);
-        createCheckBox("set example onTouchListener", (compoundButton, b) -> setOnTouchListener = b);
-
-        createMultiCheckBox(
-                new CBData("apply left Insets", (compoundButton, b) -> {
-                    leftInsets = b;
-                    if (!b) return;
-                    int thisId = checkBoxes.indexOf(compoundButton);
-                    int startId = thisId;
-                    checkBoxes.get(startId + 3).setChecked(false);
-                    checkBoxes.get(startId + 5).setChecked(false);
-
-                }),
-                new CBData("apply right Insets", (compoundButton, b) -> {
-                    rightInsets = b;
-                    if (!b) return;
-                    int thisId = checkBoxes.indexOf(compoundButton);
-                    int startId = thisId - 1;
-                    checkBoxes.get(startId + 3).setChecked(false);
-                    checkBoxes.get(startId + 5).setChecked(false);
-                }),
-                new CBData("apply bottom Insets", (compoundButton, b) -> {
-                    bottomInsets = b;
-                    if (!b) return;
-                    int thisId = checkBoxes.indexOf(compoundButton);
-                    int startId = thisId - 2;
-                    checkBoxes.get(startId + 5).setChecked(false);
-                }),
-                new CBData("apply horizontal Insets", (compoundButton, b) -> {
-                    horizontalInsets = b;
-                    if (!b) return;
-                    int thisId = checkBoxes.indexOf(compoundButton);
-                    int startId = thisId - 3;
-                    checkBoxes.get(startId).setChecked(false);
-                    checkBoxes.get(startId + 1).setChecked(false);
-                    checkBoxes.get(startId + 5).setChecked(false);
-                }),
-                new CBData("apply all Insets", (compoundButton, b) -> {
-                    allInsets = b;
-                    if (!b) return;
-                    int thisId = checkBoxes.indexOf(compoundButton);
-                    int startId = thisId - 4;
-                    for (int i = startId; i < thisId; i++) {
-                        checkBoxes.get(i).setChecked(false);
-                    }
-                    checkBoxes.get(startId + 5).setChecked(false);
-                }),
-                new CBData("remove all Insets", (compoundButton, b) -> {
-                    noneInsets = b;
-                    if (!b) return;
-                    int thisId = checkBoxes.indexOf(compoundButton);
-                    int startId = thisId - 5;
-                    for (int i = startId; i < thisId; i++) {
-                        checkBoxes.get(i).setChecked(false);
-                    }
-                })
-        );
-
+        createEditTextAndCheckBoxLayout("Set empty list text",emptyListTxt,"empty list text","set empty list text", (compoundButton,b) -> setEmptyListTxt = b);
+        addSpace();
+        addPresets();
     }
-
     private void addPresets() {
 
         for (int i = 0; i < 13; i++)
@@ -408,9 +130,7 @@ public class SJDialog_ListDialog extends AppCompatActivity {
         createCheckBoxList("Set List Item Selected Background Resource", (compoundButton, b) -> listItemSelectedBg = b, false);
         createCheckBoxList("Set List Item Text Color", (compoundButton, b) -> listItemText = b, false);
 
-        View view = new View(this);
-        view.setMinimumHeight(50);
-        listPresets.addView(view);
+        addSpace();
 
         createPresets("Array String", PresetsCB.get(0));
         createPresets("Array String with onClick", PresetsCB.get(1));
@@ -426,8 +146,10 @@ public class SJDialog_ListDialog extends AppCompatActivity {
         createPresets("Image", PresetsCB.get(11));
         createPresets("Image and onClick", PresetsCB.get(12));
 
-        createEditTextLayout("Number of image items", iconNumTxt, "1", "numberImages", listPresets);
+        createEditTextLayout("Number of image items", iconNumTxt, "1", "numberImages");
     }
+
+
 
     private void uncheckOthers(CheckBox cb) {
         for (CheckBox checkBox : PresetsCB) {
@@ -449,7 +171,7 @@ public class SJDialog_ListDialog extends AppCompatActivity {
 
         checkBox.setText(title);
         checkBox.setOnCheckedChangeListener((compoundButton, b) -> onCheckL(b, checkBox, null));
-        listPresets.addView(checkBox);
+        rootView.addView(checkBox);
 
     }
 
@@ -457,39 +179,10 @@ public class SJDialog_ListDialog extends AppCompatActivity {
 
         checkBox.setText(title);
         checkBox.setOnCheckedChangeListener((compoundButton, b) -> onCheckL(b, checkBox, event));
-        listPresets.addView(checkBox);
-
-    }
-
-    private void createMultiCheckBox(CBData...cbs){
-        ArrayList<CheckBox> tmpCB = new ArrayList<>();
-
-        for (int i = 0; i < cbs.length; i++){
-            tmpCB.add(createCheckBox(cbs[i].text));
-        }
-        for (int i = 0; i < cbs.length; i++){
-            tmpCB.get(i).setOnCheckedChangeListener(cbs[i].onCheckedChangeListener);
-        }
-    }
-
-    private CheckBox createCheckBox(String title) {
-        return createCheckBox(title, null, false);
-    }
-
-    private void createCheckBox(String title, CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
-        createCheckBox(title, onCheckedChangeListener, false);
-    }
-
-    private CheckBox createCheckBox(String title, CompoundButton.OnCheckedChangeListener onCheckedChangeListener, boolean def) {
-
-        CheckBox checkBox = new CheckBox(this);
-        checkBox.setText(title);
-        checkBoxes.add(checkBox);
-        checkBox.setOnCheckedChangeListener(onCheckedChangeListener);
-        checkBox.setChecked(def);
         rootView.addView(checkBox);
-        return checkBox;
+
     }
+
 
     private void createCheckBoxList(String title, CompoundButton.OnCheckedChangeListener onCheckedChangeListener, boolean def) {
 
@@ -498,79 +191,11 @@ public class SJDialog_ListDialog extends AppCompatActivity {
         checkBoxes.add(checkBox);
         checkBox.setOnCheckedChangeListener(onCheckedChangeListener);
         checkBox.setChecked(def);
-        listPresets.addView(checkBox);
+        rootView.addView(checkBox);
     }
 
-    private void createEditTextLayout(String title, EditText editText) {
-        createEditTextLayout(title, editText, "#FF00FF00", "");
-    }
-
-    private void createEditTextLayout(String title, EditText editText, String text, String hint) {
-        createEditTextLayout(title, editText, text, hint, rootView);
-    }
-
-    private void createEditTextLayout(String title, EditText editText, String text, String hint, LinearLayout view) {
-
-        LinearLayout BtnColorLL = new LinearLayout(this);
-        BtnColorLL.setOrientation(LinearLayout.HORIZONTAL);
-        TextView titleColor = new TextView(this);
-        titleColor.setText(title);
-        editText.setText(text);
-        editText.setHint(hint);
-        editTexts.add(editText);
-        BtnColorLL.addView(titleColor);
-        BtnColorLL.addView(editText);
-
-        view.addView(BtnColorLL);
-
-
-    }
-
-    private CheckBox createCheckBoxLL(String title, CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
-        return createCheckBoxLL(title, onCheckedChangeListener, false);
-    }
-
-    private CheckBox createCheckBoxLL(String title, CompoundButton.OnCheckedChangeListener onCheckedChangeListener, boolean def) {
-
-        CheckBox checkBox = new CheckBox(this);
-        checkBox.setText(title);
-        checkBoxes.add(checkBox);
-        checkBox.setOnCheckedChangeListener(onCheckedChangeListener);
-        checkBox.setChecked(def);
-//        rootView.addView(checkBox);
-        return checkBox;
-    }
-
-    private void createEditTextAndCheckBoxLayout(String title, EditText editText, CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
-        createEditTextAndCheckBoxLayout(title, editText, "text", "", onCheckedChangeListener, false);
-
-    }
-
-    private void createEditTextAndCheckBoxLayout(String title, EditText editText, CompoundButton.OnCheckedChangeListener onCheckedChangeListener, boolean def) {
-        createEditTextAndCheckBoxLayout(title, editText, "text", "", onCheckedChangeListener, def);
-
-    }
-
-    private void createEditTextAndCheckBoxLayout(String title, EditText editText, String text, String hint, CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
-        createEditTextAndCheckBoxLayout(title, editText, text, hint, onCheckedChangeListener, false);
-
-    }
-
-    private void createEditTextAndCheckBoxLayout(String title, EditText editText, String text, String hint, CompoundButton.OnCheckedChangeListener onCheckedChangeListener, boolean def) {
-
-        LinearLayout BtnColorLL = new LinearLayout(this);
-        BtnColorLL.setOrientation(LinearLayout.HORIZONTAL);
-        editText.setText(text);
-        editText.setHint(hint);
-        editTexts.add(editText);
-        BtnColorLL.addView(createCheckBoxLL(title, onCheckedChangeListener, def));
-        BtnColorLL.addView(editText);
-        rootView.addView(BtnColorLL);
-
-    }
-
+    @Override
     void DialogBuilder(ListDialog dialog) {
-
         if (appTheme) {
             dialog.Builder(this, true);
             return;
@@ -590,8 +215,8 @@ public class SJDialog_ListDialog extends AppCompatActivity {
         dialog.Builder(this);
     }
 
+    @Override
     void createDialog() {
-
         try {
             ListDialog dialog = new ListDialog();
             DialogBuilder(dialog);
@@ -617,6 +242,8 @@ public class SJDialog_ListDialog extends AppCompatActivity {
                 dialog.setOldTheme();
             if (hideEmptyListTxt)
                 dialog.hideEmptyListText();
+            if (setEmptyListTxt)
+                dialog.setEmptyListText(emptyListTxt.getText().toString());
             if (setTxtColor)
                 dialog.setTextColor(Color.MAGENTA);
             if (setTitleTxtColor)
@@ -829,6 +456,77 @@ public class SJDialog_ListDialog extends AppCompatActivity {
                 });
             }
 
+
+            dialog.show();
+        } catch (Exception e) {
+            ArrayList<ObjData> arr = new ArrayList<>();
+
+            for (EditText editText : editTexts){
+                LogDialog.txt(editText.getHint().toString(),editText.getText().toString());
+                arr.add(new ObjData(editText.getHint().toString(),editText.getText().toString()));
+            }
+            LogDialog.line();
+            for (CheckBox checkBox : checkBoxes) {
+                LogDialog.bool(checkBox.getText().toString(),checkBox.isChecked());
+                arr.add(new ObjData(checkBox.getText().toString(),checkBox.isChecked()));
+            }
+            LogDialog.line();
+            for (CheckBox checkBox : PresetsCB) {
+                LogDialog.bool(checkBox.getText().toString(),checkBox.isChecked());
+                arr.add(new ObjData(checkBox.getText().toString(),checkBox.isChecked()));
+            }
+
+
+            throw new RuntimeException(e + "     " + arr);
+
+        }
+    }
+
+    private void createAdapter(int bg) {
+        ArrayList<TestObj> testObjs = new ArrayList<>();
+        testObjs.add(new TestObj("test1", "val1"));
+        testObjs.add(new TestObj("test2", "val2"));
+        testObjs.add(new TestObj("test3", "val3"));
+
+
+        testAdapter = new TestRecyclerViewAdapter(testObjs, bg);
+    }
+
+    void log(int position, Object obj) {
+        Toast.makeText(this, position + " : " + obj, Toast.LENGTH_SHORT).show();
+    }
+
+
+}
+
+interface CheckBoxEvent {
+    void onChecked();
+}
+
+@SuppressWarnings("ALL")
+class ExampleClass {
+    String value1;
+    String value2;
+
+    public ExampleClass(String value1) {
+        this.value1 = value1;
+    }
+
+    public ExampleClass(String value1, String value2) {
+        this.value1 = value1;
+        this.value2 = value2;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "ExampleClass{" +
+                "value1='" + value1 + '\'' +
+                ", value2='" + value2 + '\'' +
+                '}';
+    }
+}
+
         /*
         dialog.setItems(strings);
         dialog.setItems(strings,(position, value) -> {});
@@ -884,68 +582,3 @@ public class SJDialog_ListDialog extends AppCompatActivity {
         },(position, obj) -> {});
 
 */
-            dialog.show();
-        } catch (Exception e) {
-            ArrayList<ObjData> arr = new ArrayList<>();
-
-            for (EditText editText : editTexts){
-                LogDialog.txt(editText.getHint().toString(),editText.getText().toString());
-                arr.add(new ObjData(editText.getHint().toString(),editText.getText().toString()));
-            }
-            LogDialog.line();
-            for (CheckBox checkBox : checkBoxes) {
-                LogDialog.bool(checkBox.getText().toString(),checkBox.isChecked());
-                arr.add(new ObjData(checkBox.getText().toString(),checkBox.isChecked()));
-            }
-            LogDialog.line();
-            for (CheckBox checkBox : PresetsCB) {
-                LogDialog.bool(checkBox.getText().toString(),checkBox.isChecked());
-                arr.add(new ObjData(checkBox.getText().toString(),checkBox.isChecked()));
-            }
-
-
-            throw new RuntimeException(e + "     " + arr);
-
-        }
-    }
-
-    private void createAdapter(int bg) {
-        ArrayList<TestObj> testObjs = new ArrayList<>();
-        testObjs.add(new TestObj("test1", "val1"));
-        testObjs.add(new TestObj("test2", "val2"));
-        testObjs.add(new TestObj("test3", "val3"));
-
-
-        testAdapter = new TestRecyclerViewAdapter(testObjs, bg);
-    }
-
-    void log(int position, Object obj) {
-        Toast.makeText(this, position + " : " + obj, Toast.LENGTH_SHORT).show();
-    }
-}
-
-interface CheckBoxEvent {
-    void onChecked();
-}
-
-class ExampleClass {
-    String value1;
-    String value2;
-
-    public ExampleClass(String value1) {
-        this.value1 = value1;
-    }
-
-    public ExampleClass(String value1, String value2) {
-        this.value1 = value1;
-        this.value2 = value2;
-    }
-
-    @Override
-    public String toString() {
-        return "ExampleClass{" +
-                "value1='" + value1 + '\'' +
-                ", value2='" + value2 + '\'' +
-                '}';
-    }
-}
