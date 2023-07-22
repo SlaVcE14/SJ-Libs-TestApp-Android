@@ -25,15 +25,22 @@ public class SJDialog_ListDialog extends SJDialog_Base<ListDialog> {
     boolean hideEmptyListTxt;
     boolean setEmptyListTxt;
 
+    boolean selectItem;
     boolean selectable;
     boolean setAdapter;
     boolean listBg;
     boolean listItemBg;
     boolean listItemSelectedBg;
     boolean listItemText;
+    boolean itemBgColor;
+    boolean itemBgColorSelected;
+
 
     EditText iconNumTxt;
     EditText emptyListTxt;
+    EditText selectItemTxt;
+    EditText itemBgColorTxt;
+    EditText itemBgColorSelectedTxt;
 
     ArrayList<CheckBox> PresetsCB = new ArrayList<>();
 
@@ -53,6 +60,9 @@ public class SJDialog_ListDialog extends SJDialog_Base<ListDialog> {
     void init() {
         iconNumTxt = new EditText(this);
         emptyListTxt = new EditText(this);
+        selectItemTxt = new EditText(this);
+        itemBgColorTxt = new EditText(this);
+        itemBgColorSelectedTxt = new EditText(this);
         Presets();
     }
 
@@ -112,6 +122,7 @@ public class SJDialog_ListDialog extends SJDialog_Base<ListDialog> {
         addSpace();
         createCheckBox("Hide 'List is empty' text", (compoundButton, b) -> hideEmptyListTxt = b);
         createEditTextAndCheckBoxLayout("Set empty list text",emptyListTxt,"empty list text","set empty list text", (compoundButton,b) -> setEmptyListTxt = b);
+        createEditTextAndCheckBoxLayout("Select item",selectItemTxt,"0","item id", (compoundButton,b) -> selectItem = b);
         addSpace();
         addPresets();
     }
@@ -128,7 +139,10 @@ public class SJDialog_ListDialog extends SJDialog_Base<ListDialog> {
         createCheckBoxList("Set List Background Resource", (compoundButton, b) -> listBg = b, false);
         createCheckBoxList("Set List Item Background Resource", (compoundButton, b) -> listItemBg = b, false);
         createCheckBoxList("Set List Item Selected Background Resource", (compoundButton, b) -> listItemSelectedBg = b, false);
+        addSpace();
         createCheckBoxList("Set List Item Text Color", (compoundButton, b) -> listItemText = b, false);
+        createEditTextAndCheckBoxLayout("List item bg color",itemBgColorTxt,"#FF006464","color",(cb,b) -> itemBgColor = b);
+        createEditTextAndCheckBoxLayout("List item selected bg color",itemBgColorSelectedTxt,"#FF003232","color",(cb,b) -> itemBgColorSelected = b);
 
         addSpace();
 
@@ -361,6 +375,10 @@ public class SJDialog_ListDialog extends SJDialog_Base<ListDialog> {
                 dialog.setListItemSelectedBackgroundResource(R.drawable.testbtn);
             if (listItemText)
                 dialog.setListItemTextColor(0XFFFF0000);
+            if (itemBgColor)
+                dialog.setListItemBackgroundColor(Color.parseColor(itemBgColorTxt.getText().toString()));
+            if (itemBgColorSelected)
+                dialog.setListItemSelectedBackgroundColor(Color.parseColor(itemBgColorSelectedTxt.getText().toString()));
 
 
             if (PresetsCB.get(0).isChecked())
@@ -455,6 +473,8 @@ public class SJDialog_ListDialog extends SJDialog_Base<ListDialog> {
                     }
                 });
             }
+            if(selectItem)
+                dialog.selectItem(Integer.parseInt(selectItemTxt.getText().toString()));
 
 
             dialog.show();
