@@ -7,12 +7,25 @@
     android:id="@+id/main"
     tools:context=".MainActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:text="SJ Dialog"
-        android:onClick="openSJDialog"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center|top"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:text="SJ Dialog"
+            android:onClick="openSJDialog"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:text="Firework"
+            android:onClick="openFirework"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"

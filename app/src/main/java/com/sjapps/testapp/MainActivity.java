@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.google.android.material.color.DynamicColors;
 import com.sjapps.library.customdialog.MessageDialog;
+import com.sjapps.testapp.firework.FireworkActivity;
 import com.sjapps.testapp.sjdialog.CustomListAdapter;
 import com.sjapps.testapp.sjdialog.SJDialogActivity;
 
@@ -136,6 +137,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void openSJDialog(View view) {
         startActivity(new Intent(MainActivity.this, SJDialogActivity.class));
+    }
+
+    public void openFirework(View view) {
+        startActivity(new Intent(MainActivity.this, FireworkActivity.class));
     }
 
     public void openSettings(View view) {
