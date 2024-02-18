@@ -114,6 +114,10 @@ public class SJDialog_MessageDialog extends SJDialog_Base<MessageDialog> {
                 dialog.onButtonClick(() -> Toast.makeText(this, Btn1ClickMsgTxt.getText().toString(), Toast.LENGTH_SHORT).show());
             if (btnTxt)
                 dialog.setButtonText(BtnTxt.getText().toString());
+            if (onShow)
+                dialog.onShowListener(d -> Toast.makeText(this, "Dialog shown", Toast.LENGTH_SHORT).show());
+            if (onDismiss)
+                dialog.onDismissListener(d -> Toast.makeText(this, "Dialog dismissed", Toast.LENGTH_SHORT).show());
             if (dialogRes)
                 dialog.setDialogBackgroundResource(R.drawable.test1234);
             if (setBgColor)

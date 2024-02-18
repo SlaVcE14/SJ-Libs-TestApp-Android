@@ -59,6 +59,8 @@ public abstract class SJDialog_Base<T> extends AppCompatActivity {
     protected boolean setAllBtnColorTxt;
     protected boolean oneBtnEvent;
     protected boolean BtnEvents;
+    protected boolean onShow;
+    protected boolean onDismiss;
     protected boolean btnTxt;
     protected boolean btn1Txt;
     protected boolean btn2Txt;
@@ -312,6 +314,9 @@ public abstract class SJDialog_Base<T> extends AppCompatActivity {
         createEditTextLayout("Set " + (hasTwoButtons?"Left ":"") + "btn onClick Msg",Btn1ClickMsgTxt,(hasTwoButtons?"Left ":"") +  "Btn msg", (hasTwoButtons?"Left ":"") + "Btn msg");
         if(hasTwoButtons)
             createEditTextLayout("Set Right btn onClick Msg",Btn2ClickMsgTxt,"Right Btn msg","Right Btn msg");
+
+        createCheckBox("Set onShowListener",(compoundButton, b) -> onShow = b);
+        createCheckBox("Set onDismissListener",(compoundButton, b) -> onDismiss = b);
 
         createCheckBox("Set Dialog Background Resource",(compoundButton, b) -> dialogRes = b);
 

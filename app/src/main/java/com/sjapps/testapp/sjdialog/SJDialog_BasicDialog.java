@@ -146,6 +146,10 @@ public class SJDialog_BasicDialog extends SJDialog_Base<BasicDialog> {
             if (btn2Txt)
                 dialog.setRightButtonText(Btn2Txt.getText().toString());
 
+            if (onShow)
+                dialog.onShowListener(d -> Toast.makeText(this, "Dialog shown", Toast.LENGTH_SHORT).show());
+            if (onDismiss)
+                dialog.onDismissListener(d -> Toast.makeText(this, "Dialog dismissed", Toast.LENGTH_SHORT).show());
             if (dialogRes)
                 dialog.setDialogBackgroundResource(R.drawable.test1234);
             if (setBgColor)
