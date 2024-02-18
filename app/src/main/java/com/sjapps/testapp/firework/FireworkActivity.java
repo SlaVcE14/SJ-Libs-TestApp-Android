@@ -14,7 +14,7 @@ import com.sjapps.testapp.R;
 public class FireworkActivity extends AppCompatActivity {
 
 
-    LinearLayout rootView;
+    public LinearLayout rootView;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
