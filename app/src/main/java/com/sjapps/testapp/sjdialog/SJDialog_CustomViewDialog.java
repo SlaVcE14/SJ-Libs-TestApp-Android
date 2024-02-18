@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class SJDialog_CustomViewDialog extends SJDialog_Base<CustomViewDialog> {
 
     boolean setView;
+    boolean hideTitle;
 
     public SJDialog_CustomViewDialog() {
         super(true, false,"CustomViewDialog");
@@ -31,6 +32,7 @@ public class SJDialog_CustomViewDialog extends SJDialog_Base<CustomViewDialog> {
     protected void createViews() {
         super.createViews();
         createCheckBox("Add View",(compoundButton, b) -> setView = b);
+        createCheckBox("Hide Title",(compoundButton, b) -> hideTitle = b);
     }
 
     @Override
@@ -174,6 +176,8 @@ public class SJDialog_CustomViewDialog extends SJDialog_Base<CustomViewDialog> {
 
             if (setView)
                 dialog.addCustomView(createView());
+            if (hideTitle)
+                dialog.hideTitle();
 
 
             dialog.show();
