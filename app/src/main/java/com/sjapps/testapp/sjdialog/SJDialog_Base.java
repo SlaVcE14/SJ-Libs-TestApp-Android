@@ -29,6 +29,10 @@ public abstract class SJDialog_Base<T> extends AppCompatActivity {
     boolean hasTwoButtons;
     boolean twoButtonsRequired;
 
+    boolean setPreset1;
+    boolean setPreset2;
+    boolean setPreset3;
+
     protected boolean setTitle;
     protected boolean setMessage;
     protected boolean oldTheme;
@@ -226,6 +230,26 @@ public abstract class SJDialog_Base<T> extends AppCompatActivity {
     protected void createViews() {
 
 
+        createMultiCheckBox(
+                new CBData("Preset - 1", (compoundButton, b) -> {
+                    setPreset1 = b;
+                    if (!b) return;
+                    checkBoxes.get(checkBoxes.indexOf(compoundButton) + 1).setChecked(false);
+                    checkBoxes.get(checkBoxes.indexOf(compoundButton) + 2).setChecked(false);
+                }),new CBData("Preset - 2", (compoundButton, b) -> {
+                    setPreset2 = b;
+                    if (!b) return;
+                    checkBoxes.get(checkBoxes.indexOf(compoundButton) - 1).setChecked(false);
+                    checkBoxes.get(checkBoxes.indexOf(compoundButton) + 1).setChecked(false);
+                }),new CBData("Preset - 3", (compoundButton, b) -> {
+                    setPreset3 = b;
+                    if (!b) return;
+                    checkBoxes.get(checkBoxes.indexOf(compoundButton) - 1).setChecked(false);
+                    checkBoxes.get(checkBoxes.indexOf(compoundButton) - 2).setChecked(false);
+                })
+        );
+
+        addSpace();
 
         createEditTextAndCheckBoxLayout("Set Title",titleTxt,"Title","title",(compoundButton, b) -> setTitle = b);
         createEditTextAndCheckBoxLayout("Set Message",messageTxt,"Message","message",(compoundButton, b) -> setMessage = b);

@@ -80,6 +80,13 @@ public class SJDialog_MessageDialog extends SJDialog_Base<MessageDialog> {
 
             DialogBuilder(dialog);
 
+            if (setPreset1)
+                dialog.setPresets(Presets.MessageDialogPreset1);
+            if (setPreset2)
+                dialog.setPresets(Presets.MessageDialogPreset2);
+            if (setPreset3)
+                dialog.setPresets(Presets.MessageDialogPreset3);
+
             if (setAnimation)
                 dialog.setDialogAnimations(R.style.testAnimation);
 

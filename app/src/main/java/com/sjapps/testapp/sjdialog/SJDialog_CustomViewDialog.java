@@ -67,6 +67,13 @@ public class SJDialog_CustomViewDialog extends SJDialog_Base<CustomViewDialog> {
             if (twoBtns)
                 dialog.dialogWithTwoButtons();
 
+            if (setPreset1)
+                dialog.setPresets(Presets.CustomViewDialogPreset1);
+            if (setPreset2)
+                dialog.setPresets(Presets.CustomViewDialogPreset2);
+            if (setPreset3)
+                dialog.setPresets(Presets.CustomViewDialogPreset3);
+
             if (setAnimation)
                 dialog.setDialogAnimations(R.style.testAnimation);
 

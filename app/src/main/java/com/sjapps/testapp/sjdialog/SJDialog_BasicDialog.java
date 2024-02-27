@@ -81,6 +81,13 @@ public class SJDialog_BasicDialog extends SJDialog_Base<BasicDialog> {
             BasicDialog dialog = new BasicDialog();
             DialogBuilder(dialog);
 
+            if (setPreset1)
+                dialog.setPresets(Presets.BasicDialogPreset1);
+            if (setPreset2)
+                dialog.setPresets(Presets.BasicDialogPreset2);
+            if (setPreset3)
+                dialog.setPresets(Presets.BasicDialogPreset3);
+
             if (setAnimation)
                 dialog.setDialogAnimations(R.style.testAnimation);
 

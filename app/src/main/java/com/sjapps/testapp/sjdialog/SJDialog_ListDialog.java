@@ -238,6 +238,13 @@ public class SJDialog_ListDialog extends SJDialog_Base<ListDialog> {
             if (twoBtns)
                 dialog.dialogWithTwoButtons();
 
+            if (setPreset1)
+                dialog.setPresets(Presets.ListDialogPreset1);
+            if (setPreset2)
+                dialog.setPresets(Presets.ListDialogPreset2);
+            if (setPreset3)
+                dialog.setPresets(Presets.ListDialogPreset3);
+
             if (setAnimation)
                 dialog.setDialogAnimations(R.style.testAnimation);
 
