@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class SJDialog_CustomViewDialog extends SJDialog_Base<CustomViewDialog> {
 
     boolean setView;
+    boolean hideTitle;
 
     public SJDialog_CustomViewDialog() {
         super(true, false,"CustomViewDialog");
@@ -31,6 +32,7 @@ public class SJDialog_CustomViewDialog extends SJDialog_Base<CustomViewDialog> {
     protected void createViews() {
         super.createViews();
         createCheckBox("Add View",(compoundButton, b) -> setView = b);
+        createCheckBox("Hide Title",(compoundButton, b) -> hideTitle = b);
     }
 
     @Override
@@ -64,6 +66,13 @@ public class SJDialog_CustomViewDialog extends SJDialog_Base<CustomViewDialog> {
 
             if (twoBtns)
                 dialog.dialogWithTwoButtons();
+
+            if (setPreset1)
+                dialog.setPresets(Presets.CustomViewDialogPreset1);
+            if (setPreset2)
+                dialog.setPresets(Presets.CustomViewDialogPreset2);
+            if (setPreset3)
+                dialog.setPresets(Presets.CustomViewDialogPreset3);
 
             if (setAnimation)
                 dialog.setDialogAnimations(R.style.testAnimation);
@@ -140,6 +149,10 @@ public class SJDialog_CustomViewDialog extends SJDialog_Base<CustomViewDialog> {
             if (btn2Txt)
                 dialog.setRightButtonText(Btn2Txt.getText().toString());
 
+            if (onShow)
+                dialog.onShowListener(d -> Toast.makeText(this, "Dialog shown", Toast.LENGTH_SHORT).show());
+            if (onDismiss)
+                dialog.onDismissListener(d -> Toast.makeText(this, "Dialog dismissed", Toast.LENGTH_SHORT).show());
             if (dialogRes)
                 dialog.setDialogBackgroundResource(R.drawable.test1234);
             if (setBgColor)
@@ -170,6 +183,8 @@ public class SJDialog_CustomViewDialog extends SJDialog_Base<CustomViewDialog> {
 
             if (setView)
                 dialog.addCustomView(createView());
+            if (hideTitle)
+                dialog.hideTitle();
 
 
             dialog.show();

@@ -238,6 +238,13 @@ public class SJDialog_ListDialog extends SJDialog_Base<ListDialog> {
             if (twoBtns)
                 dialog.dialogWithTwoButtons();
 
+            if (setPreset1)
+                dialog.setPresets(Presets.ListDialogPreset1);
+            if (setPreset2)
+                dialog.setPresets(Presets.ListDialogPreset2);
+            if (setPreset3)
+                dialog.setPresets(Presets.ListDialogPreset3);
+
             if (setAnimation)
                 dialog.setDialogAnimations(R.style.testAnimation);
 
@@ -317,6 +324,10 @@ public class SJDialog_ListDialog extends SJDialog_Base<ListDialog> {
             if (btn2Txt)
                 dialog.setRightButtonText(Btn2Txt.getText().toString());
 
+            if (onShow)
+                dialog.onShowListener(d -> Toast.makeText(this, "Dialog shown", Toast.LENGTH_SHORT).show());
+            if (onDismiss)
+                dialog.onDismissListener(d -> Toast.makeText(this, "Dialog dismissed", Toast.LENGTH_SHORT).show());
             if (dialogRes)
                 dialog.setDialogBackgroundResource(R.drawable.test1234);
             if (setBgColor)
