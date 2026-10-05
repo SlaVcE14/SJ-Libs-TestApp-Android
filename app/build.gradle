@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    compileSdk 34
+    compileSdk 36
     namespace 'com.sjapps.testapp'
 
     defaultConfig {
         applicationId "com.sjapps.testapp"
-        minSdk 23
-        targetSdk 34
+        minSdk 24
+        targetSdk 36
         versionCode 6
         versionName "1.4"
 
@@ -23,8 +23,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     buildFeatures {
         viewBinding true
@@ -44,4 +44,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.github.sj14apps:SJ-Dialog:1.7.0.1'
     implementation 'com.github.SlaVcE14:Firework-android:1.0'
+    implementation 'com.github.Slavce14:BLECtrl:722422be07'
 }

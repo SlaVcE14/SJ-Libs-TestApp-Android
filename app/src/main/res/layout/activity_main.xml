@@ -23,6 +23,11 @@
             android:text="Firework"
             android:onClick="openFirework"
             android:layout_height="wrap_content"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:text="BLECtrl"
+            android:onClick="openBLECtrl"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 
